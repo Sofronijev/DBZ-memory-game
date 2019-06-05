@@ -63,12 +63,9 @@ button {
     left: 0px;
     backface-visibility: hidden;
 }
-
-.rotiraj {
+.prednjaStrana{
     transform: rotateY(180deg);
 }
-
-.kartica:hover,
-.prednjaStrana {
+.rotiraj {
     transform: rotateY(180deg);
 }

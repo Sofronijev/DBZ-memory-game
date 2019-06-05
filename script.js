@@ -33,30 +33,52 @@ $(document).ready(function () {
     });
 
     $("#promesaj").click(function () {
-        //uvodim ponovo promenljivu broj slika
-        let brojSlika = $("#broj").val();
+        //provera da li su izabrene slike
+        if ($("#prikazi").prop('disabled') == true) {
+            //uvodim ponovo promenljivu broj slika
+            let brojSlika = $("#broj").val();
 
-        //okrecem karte
-        $(".kartica").removeClass(" rotiraj");
-        $(".prednjaStrana").removeClass(" rotiraj");
+            //okrecem karte
+            $(".kartica").removeClass(" rotiraj");
+            $(".prednjaStrana").removeClass(" rotiraj");
 
-        //pravim niz sa random brojevima
-        let randomBrojevi = []
-        while (randomBrojevi.length < brojSlika * 2) {
-            var r = Math.floor(Math.random() * brojSlika * 2) + 1;
-            if (randomBrojevi.indexOf(r) === -1) randomBrojevi.push(r);
-        }
-        //mesam karte sa nizom random brojeva i orderom
-        function mesanje() {
-            for (let i = 0; i < brojSlika * 2; i++) {
-                $("#karte .kartica:eq(" + i + ")").css("order", randomBrojevi[i]);
-                console.log(randomBrojevi[i]);
+            //pravim niz sa random brojevima
+            let randomBrojevi = []
+            while (randomBrojevi.length < brojSlika * 2) {
+                var r = Math.floor(Math.random() * brojSlika * 2) + 1;
+                if (randomBrojevi.indexOf(r) === -1) randomBrojevi.push(r);
             }
+            //mesam karte sa nizom random brojeva i orderom
+            function mesanje() {
+                for (let i = 0; i < brojSlika * 2; i++) {
+                    $("#karte .kartica:eq(" + i + ")").css("order", randomBrojevi[i]);
+                }
+            }
+            //ovo sam postavio jer kad nema timeouta, kad se okrecu karte odmah se vidi na kratko gde se koja karta rasporedila prilikom mesanja
+            setTimeout(mesanje, 200);
+            //iskljucim dugne da ne moze vise da se koristi
+            $("#promesaj").prop('disabled', true);
+        } else {
+            window.alert("Prvo izaberite broj slika");
         }
-        //ovo sam postavio jer kad nema timeouta, kad se okrecu karte odmah se vidi na kratko gde se koja karta rasporedila prilikom mesanja
-        setTimeout(mesanje, 200);
-        //iskljucim dugne da ne moze vise da se koristi
-        $("#promesaj").prop('disabled', true);
+    });
+
+    $("#start").click(function () {
+        //provera da li su izmesane karte
+        if ($("#promesaj").prop('disabled') == true) {            
+
+            //okrecem kartice na klik
+            $(".kartica").click(function () {
+                $(this).addClass(" rotiraj");
+               
+            });
+
+            
+
+
+        } else {
+            window.alert("Morate prvo da izaberete i promesate karte");
+        }
     });
 
 
