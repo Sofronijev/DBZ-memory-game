@@ -24,7 +24,7 @@ form {
     margin: auto;
 }
 
-form label {
+form label, p, span {
     color: orange;
 }
 

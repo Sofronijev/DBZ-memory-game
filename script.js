@@ -35,6 +35,9 @@ $(document).ready(function () {
     $("#promesaj").click(function () {
         //provera da li su izabrene slike
         if ($("#prikazi").prop('disabled') == true) {
+
+            //iskljucujem dugme da ne moze vise da se pritiska
+            $("#promesaj").prop('disabled', true);
             //uvodim ponovo promenljivu broj slika
             let brojSlika = $("#broj").val();
 
@@ -56,47 +59,64 @@ $(document).ready(function () {
             }
             //ovo sam postavio jer kad nema timeouta, kad se okrecu karte odmah se vidi na kratko gde se koja karta rasporedila prilikom mesanja
             setTimeout(mesanje, 200);
-            //iskljucim dugne da ne moze vise da se koristi
-            $("#promesaj").prop('disabled', true);
+            let okrenutaKartica = false;
+            let prvaOkrenuta;
+            let drugaOkrenuta;
+            let pauza = false;
+            let brojPogodaka = 0;
+
+            //okrecem kartice na klik
+            $(".kartica").click(function () {
+                //ako postoje vec dve otkrivene ceka se da se vrate
+                if (pauza) {
+                    return false;
+                }
+
+                //dodaje klasu rotiraj na klikutu karticu
+                $(this).addClass(" rotiraj");
+                //da li je prvi klik
+                if (!okrenutaKartica) {
+                    okrenutaKartica = true;
+                    prvaOkrenuta = $(this);
+
+                    //ako nije onda je drugi    
+                } else {
+                    //ovde pazimo da se nije dva puta kliknulo na istu kartu
+                    //ako je karta na koju smo kliknuli ista kao prva nakoju smo kliknuli onda false
+                    if ($(this).css("order") == prvaOkrenuta.css("order")) {
+                        return false;
+                    }
+                    okrenutaKartica = false;
+                    drugaOkrenuta = $(this);
+                    //proveravam da li se slike poklapaju kod okrenutih kartica
+                    if (prvaOkrenuta.children(".prednjaStrana").attr("src") == drugaOkrenuta.children(".prednjaStrana").attr("src")) {
+                        //iskljucujemo klik efekat da uparenim karticama
+                        prvaOkrenuta.off("click");
+                        drugaOkrenuta.off("click");
+                        //registruje se pogodak i ispisuje na stranici
+                        brojPogodaka++;
+                        $("#pogodak").text(brojPogodaka);
+
+                    } else {
+                        //pauzira se funkcija da se okrecu karte dok se ove dve ne vrate
+                        pauza = true;
+                        //kartice se okrecu, settimeout je da bi se videle na kratko
+                        setTimeout(function () {
+                            prvaOkrenuta.removeClass("rotiraj");
+                            drugaOkrenuta.removeClass("rotiraj");
+                            pauza = false;
+                        }, 1000);
+
+
+                    }
+                }
+                if (brojPogodaka == brojSlika) {
+                    $("#kraj").text("Bravo! Presli ste igru!");
+                }
+            });
+
         } else {
             window.alert("Prvo izaberite broj slika");
         }
     });
-
-    $("#start").click(function () {
-        //provera da li su izmesane karte
-        if ($("#promesaj").prop('disabled') == true) {            
-
-            let okrenutaKartica = false;
-            let prvaOkrenuta;
-            let drugaOkrenuta;
-
-            //okrecem kartice na klik
-            $(".kartica").click(function () {
-                $(this).addClass(" rotiraj"); 
-                //da li je prvi klik
-                if(!okrenutaKartica){
-                    okrenutaKartica = true;
-                    prvaOkrenuta = $(this);
-                    
-                //ako nije onda je drugi    
-                } else {
-                    okrenutaKartica = false;
-                    drugaOkrenuta = $(this);
-                    //proveravam da li se slike poklapaju kod okrenutih kartica
-                    if(prvaOkrenuta.children(".prednjaStrana").attr("src") == drugaOkrenuta.children(".prednjaStrana").attr("src")){
-                        console.log("bravo");
-                    } else console.log("za malo");
-                }              
-            });
-
-            
-
-
-        } else {
-            window.alert("Morate prvo da izaberete i promesate karte");
-        }
-    });
-
-
 });
