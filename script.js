@@ -67,10 +67,27 @@ $(document).ready(function () {
         //provera da li su izmesane karte
         if ($("#promesaj").prop('disabled') == true) {            
 
+            let okrenutaKartica = false;
+            let prvaOkrenuta;
+            let drugaOkrenuta;
+
             //okrecem kartice na klik
             $(".kartica").click(function () {
-                $(this).addClass(" rotiraj");
-               
+                $(this).addClass(" rotiraj"); 
+                //da li je prvi klik
+                if(!okrenutaKartica){
+                    okrenutaKartica = true;
+                    prvaOkrenuta = $(this);
+                    
+                //ako nije onda je drugi    
+                } else {
+                    okrenutaKartica = false;
+                    drugaOkrenuta = $(this);
+                    //proveravam da li se slike poklapaju kod okrenutih kartica
+                    if(prvaOkrenuta.children(".prednjaStrana").attr("src") == drugaOkrenuta.children(".prednjaStrana").attr("src")){
+                        console.log("bravo");
+                    } else console.log("za malo");
+                }              
             });
 
             
