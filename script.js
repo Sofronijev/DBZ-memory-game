@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    let slike = ["./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", "./db/gohan.jpg", "./db/roshi.jpg", "./db/android18.jpg", "./db/broly.png", "./db/buu.png", "./db/frieza.webp", "./db/cell.webp", "./db/goten.jpeg", "./db/kidbuu.jpg", "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.png"]
+    let slike = ["./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", "./db/gohan.jpg", "./db/roshi.jpg", "./db/chichi.jpg", "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg", "./db/cell.jpg", "./db/android18.jpg", "./db/kidbuu.jpg", "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.jpg"]
 
     //prvo dugme
     $("#prikazi").click(function () {
@@ -12,7 +12,7 @@ $(document).ready(function () {
         }
         //za unet broj, dodaje slike
         for (let i = 0; i < brojSlika * 2; i++) {
-            $("#karte").append("<div class='kartica'><img class='prednjaStrana' src=''><img class='zadnjaStrana' src='./db/kugla.png' alt='kugla'></div>");
+            $("#karte").append("<div class='kartica'><img class='prednjaStrana' src=''><img class='zadnjaStrana' src='./db/kugla.jpg' alt='kugla'></div>");
         }
 
         //ovde treba da dodajem razlicite slike, 'i' se povecava za 2 da bi na po 2 karte stavio istu sliku

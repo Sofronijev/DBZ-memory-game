@@ -52,6 +52,9 @@ button {
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
+.kartica:hover{
+    cursor: pointer;
+}
 
 .prednjaStrana,
 .zadnjaStrana {
@@ -62,6 +65,8 @@ button {
     top: 0px;
     left: 0px;
     backface-visibility: hidden;
+    border-radius: 50%;
+
 }
 .prednjaStrana{
     transform: rotateY(180deg);
