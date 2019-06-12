@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     let slike = ["./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", "./db/gohan.jpg", "./db/roshi.jpg", "./db/chichi.jpg", "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg", "./db/cell.jpg", "./db/android18.jpg", "./db/kidbuu.jpg", "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.jpg"]
 
     //prvo dugme
@@ -59,15 +60,41 @@ $(document).ready(function () {
             }
             //ovo sam postavio jer kad nema timeouta, kad se okrecu karte odmah se vidi na kratko gde se koja karta rasporedila prilikom mesanja
             setTimeout(mesanje, 200);
+
+            //Tajmer
+            let pauza = false;
+            let timeRemaining = 60;
+            let timerField = $("#timer");
+            let timer = setInterval(() => {
+                timerField.text(timeRemaining + " s");
+                timeRemaining--;
+                if (timeRemaining < 0) {
+                    clearInterval(timer);
+                    //ne moze vise da se sklikce na kartice                   
+                    $("#endGame").text("DEFEAT!");
+                    endTextOn();
+                    pauza = true;
+                }
+            }, 1000);
+
             let okrenutaKartica = false;
             let prvaOkrenuta;
             let drugaOkrenuta;
-            let pauza = false;
+            let brojPoteza = 0;
             let brojPogodaka = 0;
 
+            //fukncija koja pokazuje tekst kad se zavrsi igra
+            function endTextOn() {
+                $("#overlay").css("display", "block");
+            }
+            //fukncija koja sklanja tekst
+            function endTextOff() {
+                $("#overlay").css("display", "none");
+            }
+            $("#overlay").click(endTextOff);
             //okrecem kartice na klik
             $(".kartica").click(function () {
-                //ako postoje vec dve otkrivene ceka se da se vrate
+                //ako postoje vec dve otkrivene ceka se da se vrate ili ako je isteklo vreme
                 if (pauza) {
                     return false;
                 }
@@ -89,13 +116,15 @@ $(document).ready(function () {
                     okrenutaKartica = false;
                     drugaOkrenuta = $(this);
                     //proveravam da li se slike poklapaju kod okrenutih kartica
-                    if (prvaOkrenuta.children(".prednjaStrana").attr("src") == drugaOkrenuta.children(".prednjaStrana").attr("src")) {
+                    if (prvaOkrenuta.children(".prednjaStrana").attr("src") ==
+                     drugaOkrenuta.children(".prednjaStrana").attr("src")) {
                         //iskljucujemo klik efekat da uparenim karticama
                         prvaOkrenuta.off("click");
                         drugaOkrenuta.off("click");
-                        //registruje se pogodak i ispisuje na stranici
+                        //registruje se pogodak, broji potez i ispisuje na stranici
                         brojPogodaka++;
-                        $("#pogodak").text(brojPogodaka);
+                        brojPoteza++;
+                        $("#pogodak").text(brojPoteza);
 
                     } else {
                         //pauzira se funkcija da se okrecu karte dok se ove dve ne vrate
@@ -106,12 +135,16 @@ $(document).ready(function () {
                             drugaOkrenuta.removeClass("rotiraj");
                             pauza = false;
                         }, 1000);
+                        brojPoteza++;
+                        $("#pogodak").text(brojPoteza);
 
 
                     }
                 }
                 if (brojPogodaka == brojSlika) {
-                    $("#kraj").text("Bravo! Presli ste igru!");
+                    clearInterval(timer);
+                    $("#endGame").text("VICTORY!");
+                    endTextOn();
                 }
             });
 
