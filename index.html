@@ -25,22 +25,22 @@
         <h1>DBZ memory game</h1>
 
         <form>
-            <label for="broj">Enter number of different pictures (max 15): </label>
-            <input type="number" class="form-control" id="broj">
-            <button type="button" class="btn btn-warning" id="prikazi">Show cards</button>
-            <button type="button" class="btn btn-warning" id="promesaj">Start game</button>
+            <label for="number">Enter number of different pictures (max 15): </label>
+            <input type="number" class="form-control" id="number">
+            <button type="button" class="btn btn-warning" id="showBtn">Show cards</button>
+            <button type="button" class="btn btn-warning" id="startBtn">Start game</button>
         </form>
-        <p>Total moves: <span id="pogodak">0</span></p>
+        <p>Total moves: <span id="moves">0</span></p>
         <p>Timer: <span id="timer"></span></p>
         <div id="overlay">
             <p id="endGame"></p>
         </div>
 
-        <div id="karte">
+        <div id="board">
             <!--
-            <div class='kartica'>
-                <img class='prednjaStrana' src='./db/goku.jpg' alt='goku'>
-                <img class='zadnjaStrana' src='./db/kugla.jpg' alt='kugla'>
+            <div class='memoryCard'>
+                <img class='cardFront' src='./db/goku.jpg' alt='goku'>
+                <img class='cardBack' src='./db/kugla.jpg' alt='kugla'>
             </div>
             -->
 
