@@ -1,5 +1,5 @@
-# JavaScript projekat
+# JavaScript projekat (jQuery)
 
 Igra memorije
 
-Link na Netlify: https://milos-sofronijevic-dbz.netlify.com/
+Netlify link: https://milos-sofronijevic-dbz.netlify.com/

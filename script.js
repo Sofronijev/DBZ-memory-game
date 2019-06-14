@@ -3,9 +3,11 @@ $(document).ready(() => {
     //putanja svih slika (src)
     let pictures =
         [
-            "./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", "./db/gohan.jpg", "./db/roshi.jpg",
-            "./db/chichi.jpg", "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg", "./db/cell.jpg",
-            "./db/android18.jpg", "./db/kidbuu.jpg", "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.jpg"
+            "./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", 
+            "./db/gohan.jpg", "./db/roshi.jpg","./db/chichi.jpg", 
+            "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg", 
+            "./db/cell.jpg", "./db/android18.jpg", "./db/kidbuu.jpg", 
+            "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.jpg"
         ];
     //deklarisem promenljivu timer da bi mogla da se koristi u dve razlicite funkcije
     let timer;
@@ -30,8 +32,8 @@ $(document).ready(() => {
 
 
     $("#startBtn").click(() => {
-
-        let numOfPictures = $("#difficulty").val();
+        //.val() vraca string pa ga pretvaram u broj
+        let numOfPictures = parseInt($("#difficulty").val());
         let randomNumbers = [];
         let disableBoard = false;
         let timeRemaining = 59;
@@ -86,7 +88,7 @@ $(document).ready(() => {
                 endGameText.css("display", "block");
             }
             function endTextOff() {
-                endGameText.css("display", "none");           
+                endGameText.css("display", "none");
             }
             //kad se pojavi tekst, na klik se sklanja
             endGameText.click(endTextOff);
@@ -109,14 +111,14 @@ $(document).ready(() => {
                 } else {
                     //ovde pazimo da se nije dva puta kliknulo na istu kartu
                     //ako je karta na koju smo kliknuli ista kao prva na koju smo kliknuli onda false
-                    if ($(this).css("order") == firstFlipped.css("order")) {
+                    if ($(this).css("order") === firstFlipped.css("order")) {
                         return false;
                     }
                     secondFlipped = $(this);
                     flippedCard = false;
 
                     //proveravam da li se slike poklapaju kod okrenutih kartica
-                    if (firstFlipped.children(".cardFront").attr("src") ==
+                    if (firstFlipped.children(".cardFront").attr("src") ===
                         secondFlipped.children(".cardFront").attr("src")) {
                         //iskljucujemo klik efekat na uparenim karticama
                         firstFlipped.off("click");
@@ -140,7 +142,7 @@ $(document).ready(() => {
                         counter.text(totalMoves);
                     }
                 }
-                if (cardsMatched * 2 == numOfPictures) {
+                if (cardsMatched * 2 === numOfPictures) {
                     clearInterval(timer);
                     $("#endGame").text("VICTORY!");
                     endTextOn();
@@ -150,7 +152,6 @@ $(document).ready(() => {
         } else {
             window.alert("Please choose difficulty level!");
         }
-
 
     });
     //dugme za restart igre
