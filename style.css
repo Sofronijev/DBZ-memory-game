@@ -5,10 +5,8 @@
 
 body {
     text-align: center;
-    background-image: url("db/pozadina.jpg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    background: url("db/pozadina.jpg") no-repeat center center fixed; 
+    background-size: cover;  
     height: 100%;
 
 }
