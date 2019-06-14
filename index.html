@@ -25,13 +25,27 @@
         <h1>DBZ memory game</h1>
 
         <form>
+            <!--
             <label for="number">Enter number of different pictures (max 15): </label>
             <input type="number" class="form-control" id="number">
-            <button type="button" class="btn btn-warning" id="showBtn">Show cards</button>
+            -->
+            <div class="form-group">
+                <label for="difficulty">Select difficulty</label>
+                <select class="form-control" id="difficulty">
+                    <option value="0" ></option>
+                    <option value="6" >Very easy</option>
+                    <option value="12">Easy</option>
+                    <option value="18">Normal</option>
+                    <option value="24">Hard</option>
+                    <option value="30">Insane</option>
+                </select>
+            </div>
+            <!-- <button type="button" class="btn btn-warning" id="showBtn">Show cards</button> -->
             <button type="button" class="btn btn-warning" id="startBtn">Start game</button>
+            <button type="button" class="btn btn-warning" id="restartBtn">Restart</button>
         </form>
         <p>Total moves: <span id="moves">0</span></p>
-        <p>Timer: <span id="timer"></span></p>
+        <p>Time left: <span id="timer"></span></p>
         <div id="overlay">
             <p id="endGame"></p>
         </div>

@@ -1,46 +1,42 @@
 $(document).ready(function () {
 
-
+    //putanja svih slika (src)
     let pictures = ["./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", "./db/gohan.jpg", "./db/roshi.jpg", "./db/chichi.jpg", "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg", "./db/cell.jpg", "./db/android18.jpg", "./db/kidbuu.jpg", "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.jpg"]
+    //deklarisem promenljivu timer da bi mogla da se koristi u dve razlicite funkcije
+    let timer;
+    $("#difficulty").change(function () {
 
-    //prvo dugme
-    $("#showBtn").click(function () {
-        let picturesNumber = $("#number").val();
-        //proveravam da li je korisnik uneo dobar broj
-        if (picturesNumber > 15 || picturesNumber < 1) {
-            window.alert("Unesite broj slika izmedju 1 i 15!");
-            return false;
+        $picturesNumber = $("#difficulty").val();
+        $board = $("#board");
+        //cistim prvo tablu
+        $board.empty();
+        //dodajem kartice
+        for (let i = 0; i < $picturesNumber / 2; i++) {
+            for (let y = 0; y < 2; y++) {
+                $board.append("<div class='memoryCard'><img class='cardFront' src='" +
+                    pictures[i] + "'><img class='cardBack' src='./db/kugla.jpg' alt='kugla'></div>");
+            }
         }
-        //za unet broj, dodaje slike
-        for (let i = 0; i < picturesNumber * 2; i++) {
-            $("#board").append("<div class='memoryCard'><img class='cardFront' src=''><img class='cardBack' src='./db/kugla.jpg' alt='kugla'></div>");
-        }
-
-        //ovde treba da dodajem razlicite slike, 'i' se povecava za 2 da bi na po 2 karte stavio istu sliku
-        for (let i = 0, y = 0; i < picturesNumber * 2, y < picturesNumber; i += 2, y++) {
-            $("#board .memoryCard:eq(" + i + ") .cardFront").attr("src", pictures[y]);
-            $("#board .memoryCard:eq(" + (i + 1) + ") .cardFront").attr("src", pictures[y]);
-        }
-
         //rotira karticu da se vidi na pocetku
         $(".memoryCard").addClass(" rotate");
         $(".cardFront").addClass(" rotate");
-
-        //iskljuci se da ne moze da se vise puta klikce
-        $("#showBtn").prop('disabled', true);
-        //iskljucim input, da ne moze da se menja
-        $("#number").prop('disabled', true);
-
     });
 
     $("#startBtn").click(function () {
-        //provera da li su izabrene slike
-        if ($("#showBtn").prop('disabled') == true) {
 
+        if ($("#difficulty").val() != 0) {
+
+
+
+
+            //ne moze vise da se menja difficulty
+            $("#difficulty").prop('disabled', true);
             //iskljucujem dugme da ne moze vise da se pritiska
             $("#startBtn").prop('disabled', true);
+
+
             //uvodim ponovo promenljivu broj slika
-            let picturesNumber = $("#number").val();
+            let picturesNumber = $("#difficulty").val();
 
             //okrecem karte
             $(".memoryCard").removeClass(" rotate");
@@ -48,13 +44,13 @@ $(document).ready(function () {
 
             //pravim niz sa random brojevima
             let randomNumbers = []
-            while (randomNumbers.length < picturesNumber * 2) {
-                var r = Math.floor(Math.random() * picturesNumber * 2) + 1;
+            while (randomNumbers.length < picturesNumber) {
+                var r = Math.floor(Math.random() * picturesNumber) + 1;
                 if (randomNumbers.indexOf(r) === -1) randomNumbers.push(r);
             }
             //mesam karte sa nizom random brojeva i orderom
             function suffleCards() {
-                for (let i = 0; i < picturesNumber * 2; i++) {
+                for (let i = 0; i < picturesNumber; i++) {
                     $("#board .memoryCard:eq(" + i + ")").css("order", randomNumbers[i]);
                 }
             }
@@ -65,7 +61,7 @@ $(document).ready(function () {
             let disableBoard = false;
             let timeRemaining = 60;
             let timerField = $("#timer");
-            let timer = setInterval(() => {
+            timer = setInterval(() => {
                 timerField.text(timeRemaining + " s");
                 timeRemaining--;
                 if (timeRemaining < 0) {
@@ -137,11 +133,9 @@ $(document).ready(function () {
                         }, 1000);
                         totalMoves++;
                         $("#moves").text(totalMoves);
-
-
                     }
                 }
-                if (cardsMatched == picturesNumber) {
+                if (cardsMatched * 2 == picturesNumber) {
                     clearInterval(timer);
                     $("#endGame").text("VICTORY!");
                     endTextOn();
@@ -149,7 +143,23 @@ $(document).ready(function () {
             });
 
         } else {
-            window.alert("Prvo izaberite broj slika");
+            window.alert("Please choose difficulty level!");
         }
+
+
     });
+    //dugme za restart igre
+    $("#restartBtn").click(function () {
+        $("#board").empty();
+        $("#difficulty").prop('disabled', false);
+        $("#difficulty").val("0");
+        $("#startBtn").prop('disabled', false);
+        clearInterval(timer);
+        totalMoves = 0;
+        $("#moves").text("0");
+        cardsMatched = 0;
+        timeRemaining = 60;
+        $("#timer").text("");
+    });
+
 });
