@@ -3,10 +3,10 @@ $(document).ready(() => {
     //putanja svih slika (src)
     let pictures =
         [
-            "./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg", 
-            "./db/gohan.jpg", "./db/roshi.jpg","./db/chichi.jpg", 
-            "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg", 
-            "./db/cell.jpg", "./db/android18.jpg", "./db/kidbuu.jpg", 
+            "./db/goku.jpg", "./db/krillin.jpg", "./db/vegeta.jpeg",
+            "./db/gohan.jpg", "./db/roshi.jpg", "./db/chichi.jpg",
+            "./db/yamcha.jpg", "./db/chautzu.jpg", "./db/frieza.jpg",
+            "./db/cell.jpg", "./db/android18.jpg", "./db/kidbuu.jpg",
             "./db/pikolo.jpg", "./db/tien.jpeg", "./db/trunks.jpg"
         ];
     //deklarisem promenljivu timer da bi mogla da se koristi u dve razlicite funkcije

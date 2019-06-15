@@ -22,7 +22,7 @@ h1 {
 }
 
 form {
-    width: 350px;
+    max-width: 350px;
     margin: auto;
 }
 
@@ -110,6 +110,7 @@ p{
     z-index: 2; 
     cursor: pointer;     
 }
+
 #endGame{
     position: fixed;
     top: 50%;
