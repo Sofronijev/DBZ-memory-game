@@ -3,7 +3,9 @@
     src: url(db/Saiyan-Sans.ttf);
 }
 
-
+html{
+    height: 100%;
+}
 
 body {
     text-align: center;
