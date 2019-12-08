@@ -1,4 +1,4 @@
-# JavaScript projekat (jQuery)
+# JavaScript project (jQuery)
 
 Memory game with characters from the DBZ universe. Difficulty changes the number of cards. Try to beat Goku :wink:
 
